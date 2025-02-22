@@ -19,16 +19,18 @@ class Bullet(Sprite):
         # Store bullet's position as a float
         self.y = float(self.rect.y)
 
-    def update(self, bullets):
+    def update(self, ai_game):
         """Move the bullet up the screen"""
         # Update the exact position of the bullet
         self.y -= self.settings.bullet_speed
         # Update the rect position
         self.rect.y = self.y
         # Getting rid of disappeared bullets
-        for bullet in bullets.copy():
+        for bullet in ai_game.bullets.copy():
             if bullet.rect.bottom <= 0:
-                bullets.remove(bullet)
+                ai_game.bullets.remove(bullet)
+
+        ai_game._check_bullet_alien_collisions()
 
     def draw_bullet(self):
         """Draw the bullet into the screen"""
